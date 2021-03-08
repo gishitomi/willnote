@@ -22,4 +22,4 @@ Route::get('/', function () {
 // Route::get('/{any?}', function() => view('index'))->where('any', '.+');
 Route::get('/{any?}', function() {
     return view('index');
-});
+})->where('any', '.+');
