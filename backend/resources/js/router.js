@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 
 import Login from './pages/Login.vue'
 import Notes from './pages/Notes.vue'
-import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
@@ -18,6 +17,7 @@ const routes = [{
 ]
 
 const router = new VueRouter({
+    mode: 'history',
     routes
 })
 
