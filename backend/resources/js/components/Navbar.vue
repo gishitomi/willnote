@@ -1,17 +1,11 @@
 <template>
   <nav class="navbar">
-    <RouterLink class="navbar__brand nav_title" to="/"> Vuesplash </RouterLink>
+    <RouterLink class="navbar__brand" to="/"> Willnote </RouterLink>
     <div class="navbar__menu">
-      <div class="navbar__item">
-        <button class="button">
-          <i class="icon ion-md-add"></i>
-          Submit a photo
-        </button>
-      </div>
-      <span class="navbar__item"> username </span>
+      <span class="navbar__item nav_username"> username さん、ようこそ </span>
       <div class="navbar__item">
         <RouterLink class="button button--link" to="/login">
-          Login / Register
+          ログイン / 新規登録
         </RouterLink>
       </div>
     </div>

@@ -1,0 +1,17 @@
+#note {
+    display: flex;
+    .article {
+        height: 100vh;
+        width: 75%;
+        border: 1px solid gray;
+        .notes {
+            background-color: red;
+        }
+    }
+    .menu-bar {
+        height: 100vh;
+        width: 25%;
+        margin: 0 10px;
+        border: 1px solid gray;
+    }
+}

@@ -10942,8 +10942,37 @@ a.text-dark:focus {
   }
 }
 
-.nav_title {
-  color: red;
+.navbar .navbar_menu .nav_username {
+  font-size: 15px;
+}
+
+.navbar .navbar_brand:hover {
+  text-decoration: none;
+}
+
+#note {
+  display: flex;
+}
+
+#note .article {
+  height: 100vh;
+  width: 75%;
+  border: 1px solid gray;
+}
+
+#note .article .notes {
+  background-color: red;
+}
+
+#note .menu-bar {
+  height: 100vh;
+  width: 25%;
+  margin: 0 10px;
+  border: 1px solid gray;
+}
+
+main {
+  margin-top: 50px;
 }
 
 
