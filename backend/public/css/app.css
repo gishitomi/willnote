@@ -10955,24 +10955,68 @@ a.text-dark:focus {
 }
 
 #note .article {
-  height: 100vh;
-  width: 75%;
-  border: 1px solid gray;
+  width: 85%;
+}
+
+#note .article .article-title {
+  border-bottom: 1px solid gray;
+  padding: 20px 10px;
 }
 
 #note .article .notes {
-  background-color: red;
+  display: grid;
+  grid-gap: 2.5rem 3.5%;
+  grid-template-columns: repeat(auto-fit, 31%);
+}
+
+#note .article .notes .note-box {
+  height: 280px;
+  background-color: white;
+}
+
+#note .article .notes .note-box .note-img {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+#note .article .notes .note-box .note-img img {
+  width: 100%;
+  height: 100%;
+}
+
+#note .article .notes .note-box .note-title {
+  font-size: 23px;
 }
 
 #note .menu-bar {
   height: 100vh;
-  width: 25%;
-  margin: 0 10px;
+  width: 20%;
+  margin-left: 30px;
   border: 1px solid gray;
+}
+
+body {
+  font-family: Merriweather, serif;
 }
 
 main {
   margin-top: 50px;
+}
+
+.font-lg {
+  font-size: 23px;
+  line-height: 1.4;
+  font-weight: bold;
+}
+
+.font-text {
+  font-size: 16px;
+  line-height: 1.8;
+  letter-spacing: 0.05em;
+}
+
+.font-sm {
+  font-size: 12px;
 }
 
 
