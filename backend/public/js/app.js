@@ -1894,11 +1894,85 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      tab: 1
+      tab: 1,
+      loginForm: {
+        email: "",
+        password: ""
+      },
+      registerForm: {
+        username: "",
+        email: "",
+        password: "",
+        password_confirm: ""
+      }
     };
+  },
+  methods: {
+    login: function login() {
+      console.log(this.loginForm);
+    },
+    register: function register() {
+      console.log(this.registerForm);
+    }
   }
 });
 
@@ -37763,69 +37837,298 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container--small" }, [
-    _c("ul", { staticClass: "tab" }, [
-      _c(
-        "li",
-        {
-          staticClass: "tab__item",
-          on: {
-            click: function($event) {
-              _vm.tab = 1
+  return _c(
+    "div",
+    { staticClass: "container--small", attrs: { id: "login-form" } },
+    [
+      _c("ul", { staticClass: "tab" }, [
+        _c(
+          "li",
+          {
+            staticClass: "tab__item",
+            class: { "tab_item--active": _vm.tab === 1 },
+            on: {
+              click: function($event) {
+                _vm.tab = 1
+              }
             }
-          }
-        },
-        [_vm._v("ログイン")]
-      ),
+          },
+          [_vm._v("\n      ログイン\n    ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "li",
+          {
+            staticClass: "tab__item",
+            class: { "tab_item--active": _vm.tab === 2 },
+            on: {
+              click: function($event) {
+                _vm.tab = 2
+              }
+            }
+          },
+          [_vm._v("\n      新規登録\n    ")]
+        )
+      ]),
       _vm._v(" "),
-      _c(
-        "li",
-        {
-          staticClass: "tab__item",
-          on: {
-            click: function($event) {
-              _vm.tab = 2
-            }
-          }
-        },
-        [_vm._v("新規登録")]
-      )
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "from-box" }, [
-      _c(
-        "p",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.tab === 1,
-              expression: "tab === 1"
-            }
+      _c("div", { staticClass: "form-box" }, [
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.tab === 1,
+                expression: "tab === 1"
+              }
+            ],
+            staticClass: "panel"
+          },
+          [
+            _c(
+              "form",
+              {
+                staticClass: "form",
+                attrs: { action: "" },
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.login()
+                  }
+                }
+              },
+              [
+                _c("label", { attrs: { for: "login-email" } }, [
+                  _vm._v("メールアドレス")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.loginForm.email,
+                      expression: "loginForm.email"
+                    }
+                  ],
+                  staticClass: "form_item",
+                  attrs: { type: "text", id: "login-email" },
+                  domProps: { value: _vm.loginForm.email },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.loginForm, "email", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "login-password" } }, [
+                  _vm._v("パスワード")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.loginForm.password,
+                      expression: "loginForm.password"
+                    }
+                  ],
+                  staticClass: "form_item",
+                  attrs: { type: "password", id: "login-password" },
+                  domProps: { value: _vm.loginForm.password },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.loginForm, "password", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm._m(0)
+              ]
+            )
           ]
-        },
-        [_vm._v("ログインフォームだよ")]
-      ),
-      _vm._v(" "),
-      _c(
-        "p",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.tab === 2,
-              expression: "tab === 2"
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.tab === 2,
+                expression: "tab === 2"
+              }
+            ],
+            staticClass: "panel",
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.register()
+              }
             }
+          },
+          [
+            _c("form", { staticClass: "form", attrs: { action: "" } }, [
+              _c("label", { attrs: { for: "username" } }, [
+                _vm._v("ユーザーネーム")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.registerForm.username,
+                    expression: "registerForm.username"
+                  }
+                ],
+                staticClass: "form_item",
+                attrs: { type: "text", id: "username" },
+                domProps: { value: _vm.registerForm.username },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.registerForm, "username", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c("label", { attrs: { for: "email" } }, [
+                _vm._v("メールアドレス")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.registerForm.email,
+                    expression: "registerForm.email"
+                  }
+                ],
+                staticClass: "form_item",
+                attrs: { type: "text", id: "email" },
+                domProps: { value: _vm.registerForm.email },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.registerForm, "email", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c("label", { attrs: { for: "password" } }, [
+                _vm._v("パスワード")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.registerForm.password,
+                    expression: "registerForm.password"
+                  }
+                ],
+                staticClass: "form_item",
+                attrs: { type: "password", id: "password" },
+                domProps: { value: _vm.registerForm.password },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.registerForm, "password", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c("label", { attrs: { for: "password_confirm" } }, [
+                _vm._v("パスワード(確認)")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.registerForm.password_confirm,
+                    expression: "registerForm.password_confirm"
+                  }
+                ],
+                staticClass: "form_item",
+                attrs: { type: "password", id: "password_confirm" },
+                domProps: { value: _vm.registerForm.password_confirm },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(
+                      _vm.registerForm,
+                      "password_confirm",
+                      $event.target.value
+                    )
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _vm._m(1)
+            ])
           ]
-        },
-        [_vm._v("会員登録フォームだよ")]
+        )
+      ]),
+      _vm._v("\n  " + _vm._s(_vm.$data) + "\n")
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form_button form-submit" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-dark btn-block", attrs: { type: "submit" } },
+        [_vm._v("\n            ログイン\n          ")]
       )
     ])
-  ])
-}
-var staticRenderFns = []
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form_button form-submit" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-dark btn-block", attrs: { type: "submit" } },
+        [_vm._v("\n            登録する\n          ")]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 
