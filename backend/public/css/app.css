@@ -1,4 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);
+@import url(https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css);
 @charset "UTF-8";
 
 /*!
@@ -10942,7 +10943,7 @@ a.text-dark:focus {
   }
 }
 
-.navbar .navbar_menu .nav_username {
+.navbar .navbar_menu .nav-username {
   font-size: 15px;
 }
 
@@ -10960,7 +10961,8 @@ a.text-dark:focus {
 
 #note .article .article-title {
   border-bottom: 1px solid gray;
-  padding: 20px 10px;
+  padding: 10px 0;
+  margin-bottom: 50px;
 }
 
 #note .article .notes {
@@ -10982,6 +10984,12 @@ a.text-dark:focus {
 #note .article .notes .note-box .note-img img {
   width: 100%;
   height: 100%;
+}
+
+#note .article .notes .note-box .note-date {
+  color: gray;
+  text-align: end;
+  padding: 0 10px;
 }
 
 #note .article .notes .note-box .note-title {

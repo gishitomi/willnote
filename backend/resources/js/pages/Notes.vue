@@ -1,7 +1,7 @@
 <template>
   <div id="note">
     <div class="article">
-      <p class="article-title font-lg">ノート一覧</p>
+      <p class="article-title font-lg">新着記事一覧</p>
       <div class="notes">
         <div class="note-box">
             <div class="note-img">

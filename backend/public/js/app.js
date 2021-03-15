@@ -37704,7 +37704,9 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "navbar__menu" }, [
-        _c("span", { staticClass: "navbar__item nav_username" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("span", { staticClass: "navbar__item nav-username" }, [
           _vm._v(" username さん、ようこそ ")
         ]),
         _vm._v(" "),
@@ -37725,7 +37727,20 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "post-btn" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-outline-dark", attrs: { type: "button" } },
+        [_vm._v("投稿　"), _c("i", { staticClass: "bi bi-pencil-square" })]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -37835,7 +37850,9 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "note" } }, [
     _c("div", { staticClass: "article" }, [
-      _c("p", { staticClass: "article-title font-lg" }, [_vm._v("ノート一覧")]),
+      _c("p", { staticClass: "article-title font-lg" }, [
+        _vm._v("新着記事一覧")
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "notes" }, [
         _c("div", { staticClass: "note-box" }, [
