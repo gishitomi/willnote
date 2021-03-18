@@ -11011,6 +11011,11 @@ a.text-dark:focus {
   margin-top: 30px;
 }
 
+#login-form .form label {
+  margin-top: 10px;
+  margin-bottom: 3px;
+}
+
 body {
   font-family: Merriweather, serif;
 }

@@ -41,8 +41,8 @@
           </div>
         </form>
       </div>
-      <div class="panel" v-show="tab === 2" @submit.prevent="register()">
-        <form action="" class="form">
+      <div class="panel" v-show="tab === 2">
+        <form action="" class="form" @submit.prevent="register">
           <label for="username">ユーザーネーム</label>
           <input type="text" id="username" class="form_item" v-model="registerForm.username" />
           <br />
@@ -88,8 +88,8 @@ export default {
     login() {
       console.log(this.loginForm);
     },
-    register() {
-      console.log(this.registerForm);
+    async register() {
+      await this.$store.dispatch('auth/register', this.registerForm)
     }
   },
 };
