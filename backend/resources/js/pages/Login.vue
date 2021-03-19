@@ -42,18 +42,38 @@
         </form>
       </div>
       <div class="panel" v-show="tab === 2">
-        <form action="" class="form" @submit.prevent="register">
+        <form action="" class="form" @submit.prevent="register()">
           <label for="username">ユーザーネーム</label>
-          <input type="text" id="username" class="form_item" v-model="registerForm.username" />
+          <input
+            type="text"
+            id="username"
+            class="form_item"
+            v-model="registerForm.username"
+          />
           <br />
           <label for="email">メールアドレス</label>
-          <input type="text" id="email" class="form_item" v-model="registerForm.email" />
+          <input
+            type="text"
+            id="email"
+            class="form_item"
+            v-model="registerForm.email"
+          />
           <br />
           <label for="password">パスワード</label>
-          <input type="password" id="password" class="form_item" v-model="registerForm.password" />
+          <input
+            type="password"
+            id="password"
+            class="form_item"
+            v-model="registerForm.password"
+          />
           <br />
           <label for="password_confirm">パスワード(確認)</label>
-          <input type="password" id="password_confirm" class="form_item" v-model="registerForm.password_confirm" />
+          <input
+            type="password"
+            id="password_confirm"
+            class="form_item"
+            v-model="registerForm.password_confirm"
+          />
 
           <div class="form_button form-submit">
             <button type="submit" class="btn btn-dark btn-block">
@@ -89,8 +109,11 @@ export default {
       console.log(this.loginForm);
     },
     async register() {
-      await this.$store.dispatch('auth/register', this.registerForm)
-    }
+      // authストアのresigterアクションを呼び出す
+      await this.$store.dispatch("auth/register", this.registerForm);
+      // トップページに移動する
+      this.$router.push("/");
+    },
   },
 };
 </script>
