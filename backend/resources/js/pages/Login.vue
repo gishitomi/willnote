@@ -43,12 +43,12 @@
       </div>
       <div class="panel" v-show="tab === 2">
         <form action="" class="form" @submit.prevent="register()">
-          <label for="username">ユーザーネーム</label>
+          <label for="name">ユーザーネーム</label>
           <input
             type="text"
-            id="username"
+            id="name"
             class="form_item"
-            v-model="registerForm.username"
+            v-model="registerForm.name"
           />
           <br />
           <label for="email">メールアドレス</label>
@@ -67,12 +67,12 @@
             v-model="registerForm.password"
           />
           <br />
-          <label for="password_confirm">パスワード(確認)</label>
+          <label for="password_confirmation">パスワード(確認)</label>
           <input
             type="password"
-            id="password_confirm"
+            id="password_confirmation"
             class="form_item"
-            v-model="registerForm.password_confirm"
+            v-model="registerForm.password_confirmation"
           />
 
           <div class="form_button form-submit">
@@ -97,10 +97,10 @@ export default {
         password: "",
       },
       registerForm: {
-        username: "",
+        name: "",
         email: "",
         password: "",
-        password_confirm: "",
+        password_confirmation: "",
       },
     };
   },
@@ -110,7 +110,8 @@ export default {
     },
     async register() {
       // authストアのresigterアクションを呼び出す
-      await this.$store.dispatch("auth/register", this.registerForm);
+      await this.$store.dispatch('auth/register', this.registerForm);
+      
       // トップページに移動する
       this.$router.push("/");
     },

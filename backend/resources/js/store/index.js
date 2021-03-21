@@ -1,4 +1,5 @@
-import Vue from 'vue'
+import Vue from 'vue/dist/vue.esm'
+import 'es6-promise/auto'
 import Vuex from 'vuex'
 
 import auth from './auth'
