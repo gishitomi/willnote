@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register', 'App\Http\Controllers\Auth\RegisterController@register')->name('register');
 
 // ログイン
-Route::post('/login', 'Auth\LoginController@login')->name('login');
+Route::post('/login', 'App\Http\Controllers\Auth\LoginController@login')->name('login');
 
 // ログアウト
-Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+Route::post('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
