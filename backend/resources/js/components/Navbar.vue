@@ -9,7 +9,7 @@
       <span class="navbar_item nav-username" v-else>
         ログインしましょう
       </span>
-      <div class="navbar__item">
+      <div class="navbar__item" v-if="!isLogin">
         <RouterLink class="button button--link" to="/login">
           ログイン / 新規登録
         </RouterLink>

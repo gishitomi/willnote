@@ -1,7 +1,7 @@
 <template>
     <div class="footer">
             <button class="button button--link" @click="logout()" v-if="isLogin">ログアウト</button>
-    <RouterLink class="button button--link" to="/login">
+    <RouterLink class="button button--link" to="/login" v-if="!isLogin">
       ログイン / 新規登録
     </RouterLink>
     </div>
