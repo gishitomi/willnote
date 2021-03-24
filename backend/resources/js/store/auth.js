@@ -3,6 +3,9 @@ const state = {
 }
 
 const getters = {
+    // 確実に真偽値を返せるように二重否定
+    check: state => !!state.user,
+    username: state => state.user ? state.user.name : ''
 
 }
 
@@ -21,9 +24,14 @@ const actions = {
         const response = await axios.post('/api/login', data)
         context.commit('setUser', response.data)
     },
-    async logout(context, data) {
+    async logout(context) {
         const response = await axios.post('/api/logout')
         context.commit('setUser', null)
+    },
+    async currentUser(context) {
+        const response = await axios.get('/api/user')
+        const user = response.data || null
+        context.commit('setUser', user)
     }
 }
 

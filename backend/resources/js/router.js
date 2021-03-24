@@ -4,6 +4,8 @@ import VueRouter from 'vue-router'
 import Login from './pages/Login.vue'
 import Notes from './pages/Notes.vue'
 
+import store from './store'
+
 Vue.use(VueRouter)
 
 const routes = [{
@@ -12,7 +14,15 @@ const routes = [{
     },
     {
         path: '/login',
-        component: Login
+        component: Login,
+        // 定義されたルートにアクセスされてページコンポーネントが切り替わる直前に呼び出される関数
+        beforeEnter(to, from, next) {
+            if (store.getters['auth/check']) {
+                next('/')
+            } else {
+                next()
+            }
+        }
     }
 ]
 
