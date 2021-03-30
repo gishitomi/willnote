@@ -19,6 +19,18 @@
     <div class="form-box">
       <div class="panel" v-show="tab === 1">
         <form action="" class="form" @submit.prevent="login()">
+          <div v-if="loginErrors" class="errors">
+            <ul v-if="loginErrors.email">
+              <li v-for="msg in loginErrors.email" :key="msg">
+                {{msg}}
+              </li>
+            </ul>
+            <ul v-if="loginErrors.password">
+              <li v-for="msg in loginError.password" :key="msg">
+                {{msg}}
+              </li>
+            </ul>
+          </div>
           <label for="login-email">メールアドレス</label>
           <input
             type="text"
@@ -106,15 +118,32 @@ export default {
   },
   methods: {
     async login() {
-      await this.$store.dispatch('auth/login', this.loginForm);
-      this.$router.push('/');
+      await this.$store.dispatch("auth/login", this.loginForm);
+      if (this.apiStatus) {
+        this.$router.push("/");
+      }
     },
     async register() {
       // authストアのresigterアクションを呼び出す
-      await this.$store.dispatch('auth/register', this.registerForm);
+      await this.$store.dispatch("auth/register", this.registerForm);
       // トップページに移動する
       this.$router.push("/");
     },
+    // エラーメッセージを出した後にページを切り替えて再び戻った時にエラ〜メッセージが出せれたままになっているのを防ぐ
+    clearError() {
+      this.$store.commit('auth/setLoginErrorMessages', null)
+    },
   },
+  computed: {
+    apiStatus() {
+      return this.$store.state.auth.apiStatus;
+    },
+    loginErrors() {
+      return this.$store.state.auth.loginErrorMessages;
+    },
+  },
+  created() {
+    this.clearError()
+  }
 };
 </script>
