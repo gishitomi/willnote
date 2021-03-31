@@ -4,7 +4,8 @@ import { UNPROCESSABLE_ENTITY } from '../util'
 const state = {
     user: null,
     apiStatus: null,
-    loginErrorMessages: null
+    loginErrorMessages: null,
+    registerErrorMessages: null,
 }
 
 const getters = {
@@ -23,17 +24,39 @@ const mutations = {
     },
     setLoginErrorMessages(state, messages) {
         state.loginErrorMessages = messages
+    },
+    setRegisterErrorMessages(state, messages) {
+        state.registerErrorMessages = messages
     }
 }
 
 const actions = {
     async register(context, data) {
+        // 最初はnullにする
+        context.commit('setApiStatus', null)
         const response = await axios.post('/api/register', data)
-        context.commit('setUser', response.data)
+            // 正常にpostできた場合
+        if (response.status === OK) {
+            context.commit('setApiStatus', true)
+            context.commit('setUser', response.data)
+            return false
+        }
+        // 正常にpostできなかった場合
+        context.commit('setApiStatus', false)
+            // 入力内容に不備があった場合
+        if (response.status === UNPROCESSABLE_ENTITY) {
+            context.commit('setRegisterErrorMessages', response.data.errors)
+        }
+        // システムエラーの場合
+        else {
+            // あるストアモジュールから別のモジュールのミューテーションを commit する場合は第三引数に { root: true } を追加する。
+            context.commit('error/setCode', response.status, { root: true })
+        }
+
     },
     async login(context, data) {
         context.commit('setApiStatus', null)
-        const response = await axios.post('/api/login', data).catch(err => err.response || err)
+        const response = await axios.post('/api/login', data)
 
         if (response.status === OK) {
             context.commit('setApiStatus', true)

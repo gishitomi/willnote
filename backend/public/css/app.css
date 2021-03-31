@@ -11016,6 +11016,14 @@ a.text-dark:focus {
   margin-bottom: 3px;
 }
 
+#login-form .error-message-email {
+  background-color: red;
+}
+
+#login-form .error-message-password {
+  background-color: blue;
+}
+
 body {
   font-family: Merriweather, serif;
 }

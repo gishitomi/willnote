@@ -22,12 +22,12 @@
           <div v-if="loginErrors" class="errors">
             <ul v-if="loginErrors.email">
               <li v-for="msg in loginErrors.email" :key="msg">
-                {{msg}}
+                {{ msg }}
               </li>
             </ul>
             <ul v-if="loginErrors.password">
               <li v-for="msg in loginError.password" :key="msg">
-                {{msg}}
+                {{ msg }}
               </li>
             </ul>
           </div>
@@ -55,6 +55,23 @@
       </div>
       <div class="panel" v-show="tab === 2">
         <form action="" class="form" @submit.prevent="register()">
+          <div v-if="registerErrors" class="errors">
+            <ul v-if="registerErrors.name">
+              <li v-for="msg in registerErrors.name" :key="msg">
+                {{msg}}
+              </li>
+            </ul>
+            <ul v-if="registerErrors.email">
+              <li v-for="msg in registerErrors.email" :key="msg">
+                {{ msg }}
+              </li>
+            </ul>
+            <ul v-if="registerErrors.password">
+              <li v-for="msg in registerError.password" :key="msg">
+                {{ msg }}
+              </li>
+            </ul>
+          </div>
           <label for="name">ユーザーネーム</label>
           <input
             type="text"
@@ -127,11 +144,13 @@ export default {
       // authストアのresigterアクションを呼び出す
       await this.$store.dispatch("auth/register", this.registerForm);
       // トップページに移動する
-      this.$router.push("/");
+      if (this.apiStatus) {
+        this.$router.push("/");
+      }
     },
     // エラーメッセージを出した後にページを切り替えて再び戻った時にエラ〜メッセージが出せれたままになっているのを防ぐ
     clearError() {
-      this.$store.commit('auth/setLoginErrorMessages', null)
+      this.$store.commit("auth/setLoginErrorMessages", null);
     },
   },
   computed: {
@@ -141,9 +160,12 @@ export default {
     loginErrors() {
       return this.$store.state.auth.loginErrorMessages;
     },
+    registerErrors() {
+      return this.$store.state.auth.registerErrorMessages;
+    },
   },
   created() {
-    this.clearError()
-  }
+    this.clearError();
+  },
 };
 </script>

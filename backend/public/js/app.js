@@ -2119,6 +2119,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2173,7 +2202,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
                 // トップページに移動する
-                _this2.$router.push("/");
+                if (_this2.apiStatus) {
+                  _this2.$router.push("/");
+                }
 
               case 3:
               case "end":
@@ -2182,12 +2213,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee2);
       }))();
+    },
+    // エラーメッセージを出した後にページを切り替えて再び戻った時にエラ〜メッセージが出せれたままになっているのを防ぐ
+    clearError: function clearError() {
+      this.$store.commit("auth/setLoginErrorMessages", null);
     }
   },
   computed: {
     apiStatus: function apiStatus() {
       return this.$store.state.auth.apiStatus;
+    },
+    loginErrors: function loginErrors() {
+      return this.$store.state.auth.loginErrorMessages;
+    },
+    registerErrors: function registerErrors() {
+      return this.$store.state.auth.registerErrorMessages;
     }
+  },
+  created: function created() {
+    this.clearError();
   }
 });
 
@@ -2278,6 +2322,11 @@ window.axios.interceptors.request.use(function (config) {
   config.headers['X-XSRF-TOKEN'] = (0,_util__WEBPACK_IMPORTED_MODULE_0__.getCookieValue)('XSRF-TOKEN');
   return config;
 });
+window.axios.interceptors.response.use(function (response) {
+  return response;
+}, function (error) {
+  return error.response || error;
+});
 
 /***/ }),
 
@@ -2356,7 +2405,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var state = {
   user: null,
   apiStatus: null,
-  loginErrorMessages: null
+  loginErrorMessages: null,
+  registerErrorMessages: null
 };
 var getters = {
   // 確実に真偽値を返せるように二重否定
@@ -2376,6 +2426,9 @@ var mutations = {
   },
   setLoginErrorMessages: function setLoginErrorMessages(state, messages) {
     state.loginErrorMessages = messages;
+  },
+  setRegisterErrorMessages: function setRegisterErrorMessages(state, messages) {
+    state.registerErrorMessages = messages;
   }
 };
 var actions = {
@@ -2386,14 +2439,38 @@ var actions = {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
+              // 最初はnullにする
+              context.commit('setApiStatus', null);
+              _context.next = 3;
               return axios.post('/api/register', data);
 
-            case 2:
+            case 3:
               response = _context.sent;
-              context.commit('setUser', response.data);
 
-            case 4:
+              if (!(response.status === _util__WEBPACK_IMPORTED_MODULE_1__.OK)) {
+                _context.next = 8;
+                break;
+              }
+
+              context.commit('setApiStatus', true);
+              context.commit('setUser', response.data);
+              return _context.abrupt("return", false);
+
+            case 8:
+              // 正常にpostできなかった場合
+              context.commit('setApiStatus', false); // 入力内容に不備があった場合
+
+              if (response.status === _util__WEBPACK_IMPORTED_MODULE_1__.UNPROCESSABLE_ENTITY) {
+                context.commit('setRegisterErrorMessages', response.data.errors);
+              } // システムエラーの場合
+              else {
+                  // あるストアモジュールから別のモジュールのミューテーションを commit する場合は第三引数に { root: true } を追加する。
+                  context.commit('error/setCode', response.status, {
+                    root: true
+                  });
+                }
+
+            case 10:
             case "end":
               return _context.stop();
           }
@@ -2410,9 +2487,7 @@ var actions = {
             case 0:
               context.commit('setApiStatus', null);
               _context2.next = 3;
-              return axios.post('/api/login', data)["catch"](function (err) {
-                return err.response || err;
-              });
+              return axios.post('/api/login', data);
 
             case 3:
               response = _context2.sent;
@@ -2428,9 +2503,14 @@ var actions = {
 
             case 8:
               context.commit('setApiStatus', false);
-              context.commit('error/setCode', response.status, {
-                root: true
-              });
+
+              if (response.status === _util__WEBPACK_IMPORTED_MODULE_1__.UNPROCESSABLE_ENTITY) {
+                context.commit('setLoginErrorMessages', response.data.errors);
+              } else {
+                context.commit('error/setCode', response.status, {
+                  root: true
+                });
+              }
 
             case 10:
             case "end":
@@ -5418,6 +5498,42 @@ var render = function() {
                 }
               },
               [
+                _vm.loginErrors
+                  ? _c("div", { staticClass: "errors" }, [
+                      _vm.loginErrors.email
+                        ? _c(
+                            "ul",
+                            _vm._l(_vm.loginErrors.email, function(msg) {
+                              return _c("li", { key: msg }, [
+                                _vm._v(
+                                  "\n              " +
+                                    _vm._s(msg) +
+                                    "\n            "
+                                )
+                              ])
+                            }),
+                            0
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.loginErrors.password
+                        ? _c(
+                            "ul",
+                            _vm._l(_vm.loginError.password, function(msg) {
+                              return _c("li", { key: msg }, [
+                                _vm._v(
+                                  "\n              " +
+                                    _vm._s(msg) +
+                                    "\n            "
+                                )
+                              ])
+                            }),
+                            0
+                          )
+                        : _vm._e()
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
                 _c("label", { attrs: { for: "login-email" } }, [
                   _vm._v("メールアドレス")
                 ]),
@@ -5505,6 +5621,58 @@ var render = function() {
                 }
               },
               [
+                _vm.registerErrors
+                  ? _c("div", { staticClass: "errors" }, [
+                      _vm.registerErrors.name
+                        ? _c(
+                            "ul",
+                            _vm._l(_vm.registerErrors.name, function(msg) {
+                              return _c("li", { key: msg }, [
+                                _vm._v(
+                                  "\n              " +
+                                    _vm._s(msg) +
+                                    "\n            "
+                                )
+                              ])
+                            }),
+                            0
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.registerErrors.email
+                        ? _c(
+                            "ul",
+                            _vm._l(_vm.registerErrors.email, function(msg) {
+                              return _c("li", { key: msg }, [
+                                _vm._v(
+                                  "\n              " +
+                                    _vm._s(msg) +
+                                    "\n            "
+                                )
+                              ])
+                            }),
+                            0
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.registerErrors.password
+                        ? _c(
+                            "ul",
+                            _vm._l(_vm.registerError.password, function(msg) {
+                              return _c("li", { key: msg }, [
+                                _vm._v(
+                                  "\n              " +
+                                    _vm._s(msg) +
+                                    "\n            "
+                                )
+                              ])
+                            }),
+                            0
+                          )
+                        : _vm._e()
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
                 _c("label", { attrs: { for: "name" } }, [
                   _vm._v("ユーザーネーム")
                 ]),
