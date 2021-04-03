@@ -1,5 +1,5 @@
-import { OK } from '../util'
-import { UNPROCESSABLE_ENTITY } from '../util'
+import { OK, UNPROCESSABLE_ENTITY, CREATED } from '../util'
+
 
 const state = {
     user: null,
@@ -36,7 +36,7 @@ const actions = {
         context.commit('setApiStatus', null)
         const response = await axios.post('/api/register', data)
             // 正常にpostできた場合
-        if (response.status === OK) {
+        if (response.status === CREATED) {
             context.commit('setApiStatus', true)
             context.commit('setUser', response.data)
             return false
@@ -46,9 +46,8 @@ const actions = {
             // 入力内容に不備があった場合
         if (response.status === UNPROCESSABLE_ENTITY) {
             context.commit('setRegisterErrorMessages', response.data.errors)
-        }
-        // システムエラーの場合
-        else {
+        } else {
+            // システムエラーの場合
             // あるストアモジュールから別のモジュールのミューテーションを commit する場合は第三引数に { root: true } を追加する。
             context.commit('error/setCode', response.status, { root: true })
         }
@@ -72,13 +71,32 @@ const actions = {
         }
     },
     async logout(context) {
+        context.commit('setApiStatus', null)
         const response = await axios.post('/api/logout')
-        context.commit('setUser', null)
+
+        if (response.status === OK) {
+            context.commit('setApiStatus', true)
+            context.commit('setUser', null)
+            return false
+        }
+
+        context.commit('setApiStatus', false)
+        context.commit('error/setCode', response.status, { root: true })
     },
     async currentUser(context) {
+        context.commit('setApiStatus', null)
         const response = await axios.get('/api/user')
         const user = response.data || null
-        context.commit('setUser', user)
+
+        if (response.status === OK) {
+            context.commit('setApiStatus', true)
+            context.commit('setUser', user)
+            return false
+        }
+
+        context.commit('setApiStatus', false)
+        context.commit('error/setCode', response.status, { root: true })
+
     }
 }
 

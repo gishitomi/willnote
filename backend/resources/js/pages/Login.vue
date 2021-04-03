@@ -67,7 +67,7 @@
               </li>
             </ul>
             <ul v-if="registerErrors.password">
-              <li v-for="msg in registerError.password" :key="msg">
+              <li v-for="msg in registerErrors.password" :key="msg">
                 {{ msg }}
               </li>
             </ul>
@@ -151,6 +151,7 @@ export default {
     // エラーメッセージを出した後にページを切り替えて再び戻った時にエラ〜メッセージが出せれたままになっているのを防ぐ
     clearError() {
       this.$store.commit("auth/setLoginErrorMessages", null);
+      this.$store.commit('auth/setRegisterErrorMessages', null);
     },
   },
   computed: {

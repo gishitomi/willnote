@@ -1933,7 +1933,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  computed: {
+    isLogin: function isLogin() {
+      return this.$store.getters["auth/check"];
+    },
+    apiStatus: function apiStatus() {
+      return this.$store.state.auth.apiStatus;
+    }
+  },
   methods: {
     logout: function logout() {
       var _this = this;
@@ -1944,10 +1954,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return _this.$store.dispatch('auth/logout');
+                return _this.$store.dispatch("auth/logout");
 
               case 2:
-                _this.$router.push('/login');
+                if (_this.apiStatus) {
+                  _this.$router.push("/login");
+                }
 
               case 3:
               case "end":
@@ -1956,11 +1968,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
-    }
-  },
-  computed: {
-    isLogin: function isLogin() {
-      return this.$store.getters['auth/check'];
     }
   }
 });
@@ -2217,6 +2224,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     // エラーメッセージを出した後にページを切り替えて再び戻った時にエラ〜メッセージが出せれたままになっているのを防ぐ
     clearError: function clearError() {
       this.$store.commit("auth/setLoginErrorMessages", null);
+      this.$store.commit('auth/setRegisterErrorMessages', null);
     }
   },
   computed: {
@@ -2401,7 +2409,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
-
 var state = {
   user: null,
   apiStatus: null,
@@ -2447,7 +2454,7 @@ var actions = {
             case 3:
               response = _context.sent;
 
-              if (!(response.status === _util__WEBPACK_IMPORTED_MODULE_1__.OK)) {
+              if (!(response.status === _util__WEBPACK_IMPORTED_MODULE_1__.CREATED)) {
                 _context.next = 8;
                 break;
               }
@@ -2462,13 +2469,13 @@ var actions = {
 
               if (response.status === _util__WEBPACK_IMPORTED_MODULE_1__.UNPROCESSABLE_ENTITY) {
                 context.commit('setRegisterErrorMessages', response.data.errors);
-              } // システムエラーの場合
-              else {
-                  // あるストアモジュールから別のモジュールのミューテーションを commit する場合は第三引数に { root: true } を追加する。
-                  context.commit('error/setCode', response.status, {
-                    root: true
-                  });
-                }
+              } else {
+                // システムエラーの場合
+                // あるストアモジュールから別のモジュールのミューテーションを commit する場合は第三引数に { root: true } を追加する。
+                context.commit('error/setCode', response.status, {
+                  root: true
+                });
+              }
 
             case 10:
             case "end":
@@ -2527,14 +2534,29 @@ var actions = {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              _context3.next = 2;
+              context.commit('setApiStatus', null);
+              _context3.next = 3;
               return axios.post('/api/logout');
 
-            case 2:
+            case 3:
               response = _context3.sent;
-              context.commit('setUser', null);
 
-            case 4:
+              if (!(response.status === _util__WEBPACK_IMPORTED_MODULE_1__.OK)) {
+                _context3.next = 8;
+                break;
+              }
+
+              context.commit('setApiStatus', true);
+              context.commit('setUser', null);
+              return _context3.abrupt("return", false);
+
+            case 8:
+              context.commit('setApiStatus', false);
+              context.commit('error/setCode', response.status, {
+                root: true
+              });
+
+            case 10:
             case "end":
               return _context3.stop();
           }
@@ -2549,15 +2571,30 @@ var actions = {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              _context4.next = 2;
+              context.commit('setApiStatus', null);
+              _context4.next = 3;
               return axios.get('/api/user');
 
-            case 2:
+            case 3:
               response = _context4.sent;
               user = response.data || null;
-              context.commit('setUser', user);
 
-            case 5:
+              if (!(response.status === _util__WEBPACK_IMPORTED_MODULE_1__.OK)) {
+                _context4.next = 9;
+                break;
+              }
+
+              context.commit('setApiStatus', true);
+              context.commit('setUser', user);
+              return _context4.abrupt("return", false);
+
+            case 9:
+              context.commit('setApiStatus', false);
+              context.commit('error/setCode', response.status, {
+                root: true
+              });
+
+            case 11:
             case "end":
               return _context4.stop();
           }
@@ -5321,7 +5358,7 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("ログアウト")]
+            [_vm._v("\n    ログアウト\n  ")]
           )
         : _vm._e(),
       _vm._v(" "),
@@ -5329,7 +5366,7 @@ var render = function() {
         ? _c(
             "RouterLink",
             { staticClass: "button button--link", attrs: { to: "/login" } },
-            [_vm._v("\n  ログイン / 新規登録\n")]
+            [_vm._v("\n    ログイン / 新規登録\n  ")]
           )
         : _vm._e()
     ],
@@ -5658,7 +5695,7 @@ var render = function() {
                       _vm.registerErrors.password
                         ? _c(
                             "ul",
-                            _vm._l(_vm.registerError.password, function(msg) {
+                            _vm._l(_vm.registerErrors.password, function(msg) {
                               return _c("li", { key: msg }, [
                                 _vm._v(
                                   "\n              " +
