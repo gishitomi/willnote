@@ -14,3 +14,9 @@ Route::post('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->name
 
 // ログイン状態を確認
 Route::get('/user', fn() => Auth::user())->name('user');
+
+// カテゴリーを設定
+Route::post('/categorys', 'App\Http\Controllers\CategoryController@create')->name('category.create');
+
+// ノートを投稿
+Route::post('/notes', 'App\Http\Controllers\NoteController@create')->name('note.create');
