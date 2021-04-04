@@ -20,6 +20,8 @@ class CreateNotesTable extends Migration
             $table->text('content');
             $table->string('top_image_path');
             $table->timestamps();
+
+            $table->foreign('category_id')->references('id')->on('categorys');
         });
     }
 

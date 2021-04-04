@@ -2364,7 +2364,14 @@ __webpack_require__.r(__webpack_exports__);
 vue__WEBPACK_IMPORTED_MODULE_4__.default.use(vue_router__WEBPACK_IMPORTED_MODULE_5__.default);
 var routes = [{
   path: '/',
-  component: _pages_Notes_vue__WEBPACK_IMPORTED_MODULE_1__.default
+  component: _pages_Notes_vue__WEBPACK_IMPORTED_MODULE_1__.default,
+  beforeEnter: function beforeEnter(to, from, next) {
+    if (!_store__WEBPACK_IMPORTED_MODULE_3__.default.getters["auth/check"]) {
+      next('/login');
+    } else {
+      next();
+    }
+  }
 }, {
   path: '/login',
   component: _pages_Login_vue__WEBPACK_IMPORTED_MODULE_0__.default,

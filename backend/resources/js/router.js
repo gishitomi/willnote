@@ -11,7 +11,14 @@ Vue.use(VueRouter)
 
 const routes = [{
         path: '/',
-        component: Notes
+        component: Notes,
+        beforeEnter(to, from, next) {
+            if (!store.getters['auth/check']) {
+                next('/login')
+            } else {
+                next()
+            }
+        }
     },
     {
         path: '/login',
